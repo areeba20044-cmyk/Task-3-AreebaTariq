@@ -250,7 +250,7 @@ This project is open source and available for personal and educational use.
 ## 👤 Author
 
 **Areeba Tariq**  
-Created as an interactive form project with engaging UI/UX design.
+
 
 ---
 
