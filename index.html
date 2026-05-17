@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lamp Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <!-- LAMP -->
+    <div class="lamp-wrapper" id="lampToggle" title="Pull the rope!">
+      <div class="rope"></div>
+      <div class="lamp-cap"></div>
+      <div class="lamp-body sleeping" id="lampFace">
+        <div class="zzz">z z z</div>
+        <div class="lamp-face">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="mouth" id="mouth"></div>
+        </div>
+      </div>
+      <div class="glow-ring"></div>
+      <div class="pull-hint">&#8593; pull rope to switch on</div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-card" id="formCard">
+      <div class="welcome-tag">✨ Welcome Back!</div>
+      <div class="form-title">Sign In</div>
+      <div class="form-subtitle">Enter your details to continue</div>
+
+      <div class="field">
+        <label for="fname">Full Name</label>
+        <input type="text" id="fname" placeholder="e.g. Ali Hassan" autocomplete="off">
+        <div class="msg" id="msg-name"></div>
+      </div>
+
+      <div class="field">
+        <label for="femail">Email Address</label>
+        <input type="email" id="femail" placeholder="you@example.com" autocomplete="off">
+        <div class="msg" id="msg-email"></div>
+      </div>
+
+      <div class="field">
+        <label for="fphone">Phone Number</label>
+        <input type="tel" id="fphone" placeholder="+92 300 1234567" autocomplete="off">
+        <div class="msg" id="msg-phone"></div>
+      </div>
+
+      <div class="field">
+        <label for="fpass">Password</label>
+        <input type="password" id="fpass" placeholder="Min 8 characters">
+        <div class="msg" id="msg-pass"></div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn">Let Me In 🔦</button>
+
+      <div class="success-banner" id="successBanner">
+        <div class="big">🎉 All Good! Welcome in!</div>
+        <div class="sub">Your details look great. Redirecting you now…</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+/* =====================
+   RESET & BASE
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #1a1a2e;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.8s ease;
+  overflow-x: hidden;
+}
+
+body.lit {
+  background: #f0f4ff;
+}
+
+/* =====================
+   SCENE LAYOUT
+===================== */
+.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+}
+
+/* =====================
+   LAMP
+===================== */
+.lamp-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+  margin-bottom: 10px;
+}
+
+.lamp-wrapper:active {
+  transform: scale(0.97);
+}
+
+/* Rope */
+.rope {
+  width: 3px;
+  height: 60px;
+  background: #8b6f47;
+  border-radius: 2px;
+  position: relative;
+  transition: background 0.4s;
+}
+
+.rope::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #8b6f47;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #6b4f2e;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+body.lit .rope {
+  background: #c8a96e;
+}
+
+body.lit .rope::after {
+  background: #c8a96e;
+  box-shadow: 0 0 0 3px #a07c4e;
+}
+
+/* Lamp cap */
+.lamp-cap {
+  width: 120px;
+  height: 16px;
+  background: #4a4a6e;
+  border-radius: 8px 8px 0 0;
+  transition: background 0.6s;
+}
+
+body.lit .lamp-cap {
+  background: #d4a017;
+}
+
+/* Lamp body */
+.lamp-body {
+  width: 100px;
+  height: 80px;
+  background: linear-gradient(160deg, #3a3a5c, #2a2a44);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  transition: background 0.6s, box-shadow 0.6s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.lit .lamp-body {
+  background: linear-gradient(160deg, #ffe066, #ffc107);
+  box-shadow:
+    0 0 60px 30px rgba(255, 200, 50, 0.45),
+    0 0 120px 60px rgba(255, 180, 30, 0.2);
+}
+
+/* Glow ring below lamp */
+.glow-ring {
+  width: 130px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(255, 200, 50, 0.35) 0%, transparent 80%);
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+body.lit .glow-ring {
+  opacity: 1;
+}
+
+/* Pull hint text */
+.pull-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6060a0;
+  letter-spacing: 1px;
+  transition: opacity 0.4s;
+}
+
+body.lit .pull-hint {
+  opacity: 0;
+}
+
+/* =====================
+   LAMP FACE
+===================== */
+.lamp-face {
+  position: absolute;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.eyes {
+  display: flex;
+  gap: 14px;
+}
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #a0a0c0;
+  border-radius: 50%;
+  transition: background 0.4s, transform 0.3s;
+}
+
+body.lit .eye {
+  background: #3a2a00;
+  transform: scaleY(0.5);
+}
+
+/* Mouth — sleeping = flat line */
+.mouth {
+  width: 20px;
+  height: 10px;
+  border: 3px solid #a0a0c0;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  transition: border-color 0.4s, width 0.3s, height 0.3s;
+}
+
+.sleeping .mouth {
+  border-radius: 0;
+  width: 18px;
+  height: 0;
+  border-bottom: 3px solid #a0a0c0;
+  border-left: none;
+  border-right: none;
+}
+
+body.lit .mouth {
+  border-color: #3a2a00;
+  width: 26px;
+  height: 12px;
+}
+
+/* ZZZ sleeping text */
+.zzz {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  font-family: 'Fredoka One', cursive;
+  color: #6060a0;
+  font-size: 18px;
+  letter-spacing: 2px;
+  animation: floatZzz 2s infinite ease-in-out;
+  transition: opacity 0.5s;
+}
+
+body.lit .zzz {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes floatZzz {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50%       { transform: translateY(-6px) scale(1.1); opacity: 1; }
+}
+
+/* =====================
+   FORM CARD
+===================== */
+.form-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 28px 24px;
+  box-shadow: 0 8px 40px rgba(80, 60, 0, 0.13);
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+  margin-top: 18px;
+}
+
+body.lit .form-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Welcome badge */
+.welcome-tag {
+  display: inline-block;
+  background: #fff3cd;
+  color: #a07000;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 30px;
+  padding: 4px 14px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.form-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 26px;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.form-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 22px;
+}
+
+/* =====================
+   FORM FIELDS
+===================== */
+.field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 5px;
+  letter-spacing: 0.3px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e8e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  color: #1a1a2e;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  background: #fafafa;
+}
+
+input:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.18);
+  background: #fff;
+}
+
+input.error-input {
+  border-color: #e24b4a;
+  background: #fff8f8;
+}
+
+input.success-input {
+  border-color: #63991a;
+  background: #f6fff0;
+}
+
+/* =====================
+   MESSAGES
+===================== */
+.msg {
+  font-size: 12px;
+  margin-top: 4px;
+  min-height: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.msg.err { color: #c0392b; }
+.msg.ok  { color: #27800a; }
+
+/* =====================
+   SUBMIT BUTTON
+===================== */
+.submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: #1a1a2e;
+  cursor: pointer;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 18px rgba(255, 160, 0, 0.35);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 160, 0, 0.45);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* =====================
+   SUCCESS BANNER
+===================== */
+.success-banner {
+  display: none;
+  background: linear-gradient(135deg, #e8fbe0, #d4f5c0);
+  border: 2px solid #63991a;
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+  margin-top: 14px;
+}
+
+.success-banner.show {
+  display: block;
+}
+
+.success-banner .big {
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
+  color: #2e6e0a;
+}
+
+.success-banner .sub {
+  font-size: 13px;
+  color: #558b2f;
+  margin-top: 4px;
+}
